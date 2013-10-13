@@ -11,26 +11,52 @@
   <style>
    #draggable { width:200px; height: 100px; padding: 0.5em; border:2px solid black;  opacity: 0.5;}
    
+   #tabs-1 {
+	width: 100%;
+	height: 100%;
+   }
+   
+   .table {
+      text-align: center;
+      vertical-align: middle;
+   }
+   
+   .small {
+	border-radius: 100px;
+   }
+   
+   .small span {
+		visibility: hidden;
+   }
+   
+   .small span.table_text {
+	visibility:visible;
+   }
+   
 .ui-resizable-se {
     background-color:#ABABAB;
+	opacity: 0.5;
     width: 30px;
     height: 30px;
 }
 
 .ui-resizable-sw {
     background-color:#ABABAB;
+	opacity: 0.5;
     width: 30px;
     height: 30px;
 }
 
 .ui-resizable-ne {
     background-color:#ABABAB;
+	opacity: 0.5;
     width: 30px;
     height: 30px;
 }
 
 .ui-resizable-nw {
     background-color:#ABABAB;
+	opacity: 0.5;
     width: 30px;
     height: 30px;
 }
@@ -72,10 +98,16 @@
       });
  
    $( "#tabs" ).tabs();
-   $('.table').resizable({
+   
+   $('.big').resizable({
    handles: 'n, e, s, w, ne, se, sw, nw',
 	grid: [ 20,20 ]
    });
+   
+   $('.small').resizable({
+	grid: [ 20,20 ]
+   });
+   
    $('.table').draggable(
     {
         /*drag: function(){
@@ -97,6 +129,9 @@
 		  tab.y = offset.top;
 		  $('#posX').text('x: ' + tab.x);
           $('#posY').text('y: ' + tab.y);
+		  $(this).find(".table_text").text(tab.name);
+		  $(this).find(".table_cashier").text("cashier");
+		  $(this).find(".table_note").text("reserviert ab XX:XXUhr (Name)");
 		  tables.push(tab);
 		}
     });
@@ -119,20 +154,32 @@
 
 <div id="floor_plan">
 
-<div id="draggable" name="tt1" class="ui-widget-content table">
+<div id="draggable" name="big table" class="ui-widget-content table big">
   <!-- <img src="tisch.png" /> -->
+  <span class="table_text">none</span></br>
+  <span class="table_cashier">none</span></br>
+  <span class="table_note">none</span>
 </div>
 
-<div id="draggable" name="tt2" class="ui-widget-content table">
+<div id="draggable" name="small table" class="ui-widget-content table small">
   <!-- <img src="tisch.png" /> -->
+  <span class="table_text">none</span></br>
+  <span class="table_cashier">none</span></br>
+  <span class="table_note">none</span>
 </div>
  
-<div id="draggable" name="tt3" class="ui-widget-content table">
+<div id="draggable" name="tt3" class="ui-widget-content table big">
   <!-- <img src="tisch.png" /> -->
+  <span class="table_text">none</span></br>
+  <span class="table_cashier">none</span></br>
+  <span class="table_note">none</span>
 </div>
 
-<div id="draggable" name="tt4" class="ui-widget-content table">
+<div id="draggable" name="tt4" class="ui-widget-content table big">
   <!-- <img src="tisch.png" /> -->
+  <span class="table_text">none</span></br>
+  <span class="table_cashier">none</span></br>
+  <span class="table_note">none</span>
 </div>
 
   <input type="submit" value="A submit button" />
