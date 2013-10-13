@@ -1,0 +1,149 @@
+<!doctype html>
+ 
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Mobile and Desktop</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+  <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+  <script src="jquery.ui.touch-punch.js"></script>
+  <style>
+   #draggable { width:200px; height: 100px; padding: 0.5em; border:2px solid black;  opacity: 0.5;}
+   
+.ui-resizable-se {
+    background-color:#ABABAB;
+    width: 30px;
+    height: 30px;
+}
+
+.ui-resizable-sw {
+    background-color:#ABABAB;
+    width: 30px;
+    height: 30px;
+}
+
+.ui-resizable-ne {
+    background-color:#ABABAB;
+    width: 30px;
+    height: 30px;
+}
+
+.ui-resizable-nw {
+    background-color:#ABABAB;
+    width: 30px;
+    height: 30px;
+}
+
+  </style>
+  <script>
+  
+  var tables = new Array;
+  
+  function restore(data) {
+	var ndata = eval(data);
+	$('.table').remove();
+	    for(var i = 0; i < ndata.length; i++) {
+		tables.push(ndata[i]);
+		  var o = tables[i];
+		  var x = o.x;
+		  var y = o.y;
+		  var vname = o.name;
+		  
+		  jQuery('<div/>', {
+			id: 'draggable',
+			name: vname,
+			class: 'ui-widget-content table'
+		  }).appendTo('#floor_plan').offset({left:x,top:y}).draggable();
+		  
+		  //$('.table[name='+name+']').css({left:x,top:y});
+        } // for
+  }
+  
+  $(document).ready(function() {
+ 
+ $( "input[type=submit], a, button" )
+      .button()
+      .click(function( event ) {
+	  
+	    //$('#current').text(JSON.stringify(tables, undefined, 2));
+		restore($("#txtBox").val());
+		
+      });
+ 
+   $( "#tabs" ).tabs();
+   $('.table').resizable({
+   handles: 'n, e, s, w, ne, se, sw, nw',
+	grid: [ 20,20 ]
+   });
+   $('.table').draggable(
+    {
+        /*drag: function(){
+            var offset = $(this).offset();
+            var xPos = offset.left;
+            var yPos = offset.top;
+            $('#posX').text('x: ' + xPos);
+            $('#posY').text('y: ' + yPos);
+			$('#current').text($(this).attr('name'));
+        },*/
+		
+		grid: [ 20,20 ],
+		stop: function() {
+		  var offset = $(this).offset();
+		  $('#current').text($(this).attr('name')+" dropped");
+		  var tab = new Object;
+		  tab.name = $(this).attr('name');
+		  tab.x = offset.left;
+		  tab.y = offset.top;
+		  $('#posX').text('x: ' + tab.x);
+          $('#posY').text('y: ' + tab.y);
+		  tables.push(tab);
+		}
+    });
+  });
+  
+  
+  </script>
+</head>
+<body>
+
+<div id="tabs">
+  <ul>
+    <li><a href="#tabs-1">Grundriss</a></li>
+    <li><a href="#tabs-2">Kalender</a></li>
+  </ul>
+  <div id="tabs-1">
+<span id="current">Tisch 1:</span>
+<span id="posX"></span>
+<span id="posY"></span>
+
+<div id="floor_plan">
+
+<div id="draggable" name="tt1" class="ui-widget-content table">
+  <!-- <img src="tisch.png" /> -->
+</div>
+
+<div id="draggable" name="tt2" class="ui-widget-content table">
+  <!-- <img src="tisch.png" /> -->
+</div>
+ 
+<div id="draggable" name="tt3" class="ui-widget-content table">
+  <!-- <img src="tisch.png" /> -->
+</div>
+
+<div id="draggable" name="tt4" class="ui-widget-content table">
+  <!-- <img src="tisch.png" /> -->
+</div>
+
+  <input type="submit" value="A submit button" />
+  <input type="text" name="fname" id="txtBox">
+  
+ </div>
+ 
+  <div id="tabs-2">
+    <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
+  </div>
+</div>
+ 
+</body>
+</html>
