@@ -53,7 +53,6 @@
 				    background-color:#ABABAB;
 				    width: 10px;
 				    height: 10px;
-				    ui-icon ui-icon-gripsmall-diagonal-se;
 				}
 	
 		  </style>
@@ -95,22 +94,15 @@
 
 		<div class="container-fluid">
 			  <div class="row-fluid">
-			    <div class="span10">	    	
-			    	
-			  		<div id="tabs-1">
-						<span id="current"></span>
-						<span id="posX"></span>
-						<span id="posY"></span>
+			    <div class="span12">	    	
+
+	<!--					<canvas id="floor_plan" width="1300" height="1150" style="border:1px solid #d3d3d3;">	</canvas> -->
 						
-						<div id="floor_plan">
+						<div id="floor_plan" style="border:2px solid black; background-color:#EBFCC6";>
 
 						 </div>
-			
-					</div>
-				</div>
-				
-				<div class="span2">
-		
+									
+					
 				</div>
 		 
 		 	 </div>
@@ -118,8 +110,16 @@
 
 
 		<!-- Loading the page  -->
-		<script defer="defer" type="text/javascript">		
-				var tableHandler = new TableHandler();  
+		<script defer="defer" type="text/javascript">	
+				var floorDivHeight = $(window).height() - 80;
+				$('#floor_plan').height(floorDivHeight);	
+				var tableHandler = new TableHandler(); 
+				// var c=document.getElementById("floor_plan");
+				// var ctx=c.getContext("2d");
+				// ctx.beginPath();
+				// ctx.moveTo(0,0);
+				// ctx.lineTo(300,150);
+				// ctx.stroke(); 
   		</script>
 
 	</body>

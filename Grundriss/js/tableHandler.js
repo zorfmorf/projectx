@@ -20,7 +20,14 @@ function TableHandler () {
              el.style.backgroundColor = options.color;
          }
      }           
+
      $('#floor_plan').append(el);
+
+    $('#' + el.id).css("position","absolute");
+    $('#' + el.id).css("top", (($('#' + el.id).parent().height() - $('#' + el.id).outerHeight()) / 2) + $('#' + el.id).parent().scrollTop() + "px");
+    $('#' + el.id).css("left", (($('#' + el.id).parent().width() - $('#' + el.id).outerWidth()) / 2) + $('#' + el.id).parent().scrollLeft() + "px");
+     
+     
      tableCounter++;
      //definiere Verhalten nach dem doppelten mouseclick auf table
      $('#' + el.id).dblclick(function(e) {            
@@ -29,10 +36,10 @@ function TableHandler () {
   }
   
   //Verhalten nach dem CLick auf addTable button
-  $("#addTable").click(function() {
-     createTable();
-     refreshTableEventListener();
- });          
+     $("#addTable").click(function() {
+        createTable();
+        refreshTableEventListener();
+    });          
     
     function behaviorOnClickOnTable(tableID) {
         console.log("clicked on " + tableID);
@@ -81,20 +88,22 @@ function TableHandler () {
        console.log("refreshTableEventListener()");
           $( ".table" ).resizable({ 
               handles: 'n, e, s, w, ne, se, sw, nw ' ,
+              containment: "parent",
               grid: [ 20,20 ],
               autoHide: true,
               ghost: true,
-                            start: function() {
-                      var offset = $(this).offset();
-                       $('#current').text($(this).attr('id')+" wil be resized");
-                       $('#posX').text('width: ' + this.style.width);
-                       $('#posY').text('hight:  ' + this.style.height);
+              start: function() {
+                       console.log("start resize");
+                       console.log($(this).attr('id')+" wil be resized");
+                       console.log('width: ' + this.style.width);
+                       console.log('height:  ' + this.style.height);
                 },
               stop: function() {
+                       console.log("stop resize");
                        var offset = $(this).offset();
-                       $('#current').text($(this).attr('id')+" resized");
-                       $('#posX').text('width: ' + this.style.width);
-                       $('#posY').text('hight:  ' + this.style.height);
+                        console.log($(this).attr('id')+" resized");
+                        console.log('width: ' + this.style.width);
+                        console.log('height:  ' + this.style.height);
                 }
               
            });
@@ -107,16 +116,19 @@ function TableHandler () {
                        $('#posY').text('y: ' + yPos);
                        $('#current').text($(this).attr('name'));
                },*/
+                containment: "parent" ,
+                opacity: 0.35,
                 grid: [ 20,20 ],
                 stop: function() {
+                       console.log("verschoben");
                        var offset = $(this).offset();
                        $('#current').text($(this).attr('id')+" dropped");
                        var tab = new Object;
                        tab.name = $(this).attr('id');
                        tab.x = offset.left;
                        tab.y = offset.top;
-                       $('#posX').text('x: ' + tab.x);
-                       $('#posY').text('y: ' + tab.y);
+                       console.log('x: ' + tab.x);
+                       console.log('y: ' + tab.y);
                 }
           });
     }
